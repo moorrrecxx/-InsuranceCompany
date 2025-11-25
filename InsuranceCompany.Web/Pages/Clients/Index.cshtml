@@ -1,0 +1,68 @@
+﻿@page
+@model InsuranceCompany.Web.Pages.Clients.IndexModel
+@{
+	ViewData["Title"] = "Clients";
+}
+<div class="container py-5">
+	<div class=" d-flex justify-content-between align-items-lg-center mb-4">
+		<div>
+			<h1 class="fw-light text-primary">Clients</h1>
+			<p class="text-muted mb-0">List of all registered clients.</p>
+		</div>
+		<a asp-page="Create" class="btn btn-primary btn-lg shadow-sm">
+			+ Add New Client
+		</a>
+	</div>
+
+
+	<div class="card shadow-sm border-0 rounded-3">
+		<div class="card-body p-0">
+			<div class="table-responsive">
+				<table class="table table-hover table-striped mb-0 align-middle"
+					<thead class="bg-light">
+						<tr>
+							<th class="py-3 ps-4">Id</th>
+							<th class="py-3">Full name</th>
+							<th class="py-3">Email</th>
+							<th class="py-3">Phone</th>
+							<th class="py-3">Birth date</th>
+							<th class="py-3">Created at</th>
+							<th class="py-3 text-end pe-4">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var client in Model.Clients)
+						{
+								<tr>
+									<td class="ps-4 fw-bold text-secondary">@client.client_id</td>
+									<td>@client.full_name</td>
+									<td>@client.email</td>
+									<td>@client.phone</td>
+									<td>@client.birth_date.ToString("yyyy-MM-dd")</td>
+									<td>@client.created_at.ToString("yyyy-MM-dd")</td>
+
+
+										<td class="text-end pe-4">
+		                                    <div class="btn-group" role="group">
+
+			                                        <a asp-page="./Edit" asp-route-id="@client.client_id" class="btn btn-sm btn-outline-primary">
+		                                            <i class="bi bi-pencil"></i> Edit
+		                                        </a>
+
+			                                        <form method="post" asp-page-handler="Delete" asp-route-id="@client.client_id"
+			                                              onsubmit="return confirm('Are you sure you want to delete client @client.full_name?');"
+		                                              style="display:inline;">
+		                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+		                                                <i class="bi bi-trash"></i> Delete
+		                                            </button>
+		                                        </form>
+		                                    </div>
+		                                </td>
+								</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
